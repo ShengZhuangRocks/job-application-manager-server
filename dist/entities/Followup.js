@@ -9,53 +9,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Contact = void 0;
+exports.Followup = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const JobAd_1 = require("./JobAd");
-const Company_1 = require("./Company");
-let Contact = class Contact extends typeorm_1.BaseEntity {
+let Followup = class Followup extends typeorm_1.BaseEntity {
 };
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Contact.prototype, "id", void 0);
+], Followup.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Contact.prototype, "name", void 0);
-__decorate([
-    type_graphql_1.Field({ nullable: true }),
-    typeorm_1.Column({ nullable: true }),
-    __metadata("design:type", String)
-], Contact.prototype, "phone", void 0);
-__decorate([
-    type_graphql_1.Field({ nullable: true }),
-    typeorm_1.Column({ nullable: true }),
-    __metadata("design:type", String)
-], Contact.prototype, "email", void 0);
-__decorate([
-    type_graphql_1.Field(() => [JobAd_1.JobAd]),
-    typeorm_1.OneToMany(() => JobAd_1.JobAd, (JobAd) => JobAd.contact),
-    __metadata("design:type", Array)
-], Contact.prototype, "jobAds", void 0);
+], Followup.prototype, "date", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typeorm_1.Column({ default: "phone" }),
+    __metadata("design:type", String)
+], Followup.prototype, "type", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], Followup.prototype, "sumary", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typeorm_1.Column({ default: false }),
+    __metadata("design:type", Boolean)
+], Followup.prototype, "isCurrentEvent", void 0);
+__decorate([
     typeorm_1.Column(),
     __metadata("design:type", Number)
-], Contact.prototype, "companyId", void 0);
+], Followup.prototype, "jobAdId", void 0);
 __decorate([
-    type_graphql_1.Field(() => Company_1.Company),
-    typeorm_1.ManyToOne(() => Company_1.Company, (company) => company.contacts, {
-        onDelete: "CASCADE",
-    }),
-    __metadata("design:type", Company_1.Company)
-], Contact.prototype, "company", void 0);
-Contact = __decorate([
+    typeorm_1.ManyToOne(() => JobAd_1.JobAd, (jobAd) => jobAd.followups, { onDelete: "CASCADE" }),
+    __metadata("design:type", JobAd_1.JobAd)
+], Followup.prototype, "jobAd", void 0);
+Followup = __decorate([
     type_graphql_1.ObjectType(),
     typeorm_1.Entity()
-], Contact);
-exports.Contact = Contact;
-//# sourceMappingURL=Contact.js.map
+], Followup);
+exports.Followup = Followup;
+//# sourceMappingURL=Followup.js.map

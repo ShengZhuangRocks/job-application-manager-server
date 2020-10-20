@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const Contact_1 = require("./Contact");
 const Company_1 = require("./Company");
 const type_graphql_1 = require("type-graphql");
+const Followup_1 = require("./Followup");
 let JobAd = class JobAd extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -32,33 +33,88 @@ __decorate([
     __metadata("design:type", String)
 ], JobAd.prototype, "link", void 0);
 __decorate([
-    type_graphql_1.Field(),
-    typeorm_1.Column(),
-    __metadata("design:type", Date)
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
 ], JobAd.prototype, "postedAt", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], JobAd.prototype, "city", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], JobAd.prototype, "jobType", void 0);
 __decorate([
     type_graphql_1.Field(),
     typeorm_1.Column(),
     __metadata("design:type", String)
 ], JobAd.prototype, "description", void 0);
 __decorate([
-    typeorm_1.Column(),
+    type_graphql_1.Field(() => [String], { nullable: true }),
+    typeorm_1.Column("simple-array", { nullable: true }),
+    __metadata("design:type", Array)
+], JobAd.prototype, "stacks", void 0);
+__decorate([
+    type_graphql_1.Field(() => [String], { nullable: true }),
+    typeorm_1.Column("simple-array", { nullable: true }),
+    __metadata("design:type", Array)
+], JobAd.prototype, "softSkills", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Boolean)
+], JobAd.prototype, "degree", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", Number)
+], JobAd.prototype, "minYears", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ default: false }),
+    __metadata("design:type", Boolean)
+], JobAd.prototype, "applied", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ nullable: true }),
+    __metadata("design:type", String)
+], JobAd.prototype, "appliedAt", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typeorm_1.Column({ default: false }),
+    __metadata("design:type", Boolean)
+], JobAd.prototype, "terminated", void 0);
+__decorate([
+    typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Number)
 ], JobAd.prototype, "contactId", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", Number)
-], JobAd.prototype, "CompanyId", void 0);
-__decorate([
-    type_graphql_1.Field(() => Contact_1.Contact),
-    typeorm_1.ManyToOne(() => Contact_1.Contact, (contact) => contact.jobAds),
+    type_graphql_1.Field(() => Contact_1.Contact, { nullable: true }),
+    typeorm_1.ManyToOne(() => Contact_1.Contact, (contact) => contact.jobAds, {
+        onDelete: "CASCADE",
+        eager: false,
+    }),
     __metadata("design:type", Contact_1.Contact)
 ], JobAd.prototype, "contact", void 0);
 __decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], JobAd.prototype, "companyId", void 0);
+__decorate([
     type_graphql_1.Field(() => Company_1.Company),
-    typeorm_1.ManyToOne(() => Company_1.Company, (company) => company.jobAds),
+    typeorm_1.ManyToOne(() => Company_1.Company, (company) => company.jobAds, {
+        onDelete: "CASCADE",
+    }),
     __metadata("design:type", Company_1.Company)
 ], JobAd.prototype, "company", void 0);
+__decorate([
+    type_graphql_1.Field(() => [Followup_1.Followup]),
+    typeorm_1.OneToMany(() => Followup_1.Followup, (followup) => followup.jobAd),
+    __metadata("design:type", Array)
+], JobAd.prototype, "followups", void 0);
 JobAd = __decorate([
     type_graphql_1.ObjectType(),
     typeorm_1.Entity()

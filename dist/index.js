@@ -20,20 +20,20 @@ const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
 const Company_1 = require("./entities/Company");
 const Contact_1 = require("./entities/Contact");
+const Followup_1 = require("./entities/Followup");
 const JobAd_1 = require("./entities/JobAd");
-const Photo_1 = require("./entities/Photo");
-const Taker_1 = require("./entities/Taker");
 const company_1 = require("./resolvers/company");
 const contact_1 = require("./resolvers/contact");
+const followup_1 = require("./resolvers/followup");
 const hello_1 = require("./resolvers/hello");
-const photo_1 = require("./resolvers/photo");
+const jobAd_1 = require("./resolvers/jobAd");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     yield typeorm_1.createConnection({
         type: "postgres",
         url: "postgresql://postgres:123@localhost:5432/jobs",
         logging: true,
         synchronize: true,
-        entities: [JobAd_1.JobAd, Contact_1.Contact, Company_1.Company, Photo_1.Photo, Taker_1.Taker],
+        entities: [JobAd_1.JobAd, Contact_1.Contact, Company_1.Company, Followup_1.Followup],
     });
     const app = express_1.default();
     app.use(cors_1.default({
@@ -46,7 +46,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 hello_1.HelloResolver,
                 contact_1.ContactResolver,
                 company_1.CompanyResolver,
-                photo_1.PhotoResolver,
+                jobAd_1.JobAdResolver,
+                followup_1.FollowupResolver,
             ],
             validate: false,
         }),
